@@ -24,7 +24,8 @@ def valid_model(_print, cfg, model, valid_loader,
     preds, labels = torch.cat(preds, 0), torch.cat(labels, 0)
     val_loss = loss_function(preds.float(), labels)
     scores = []
-    final_score = metric_function(preds, labels.long())[0].item()
+    metric_result = metric_function(preds, labels.long())
+    final_score = metric_result.mean().item()
     print(final_score)
 
     _print(f"Validation {metric_name}: {final_score:04f}, val loss:{val_loss:05f} best: {best_metric:04f}\n")
